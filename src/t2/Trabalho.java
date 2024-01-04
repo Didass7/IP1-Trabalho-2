@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class Trabalho {
 
+    public static int nItens = 0;
+    public static double total = 0.0;
+    public static double gasto = 0.0;
+    public static double falta = 0.0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -12,12 +17,12 @@ public class Trabalho {
         double[] quanto = new double[tamMax];
         double[] preco = new double[tamMax];
         boolean[] feito = new boolean[tamMax];
-        int nItens = 0;
 
-        apresentarMenuPrincipal(scanner, nome, quanto, preco, feito, nItens);
+
+        apresentarMenuPrincipal(scanner, nome, quanto, preco, feito);
     }
 
-    private static void apresentarMenuPrincipal(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void apresentarMenuPrincipal(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char op;
         do {
             System.out.println("(E)ditar lista.\n"
@@ -28,41 +33,41 @@ public class Trabalho {
             scanner.nextLine();
             switch (op) {
                 case 'E':
-                    apresentarEditarLista(scanner, nome, quanto, preco, feito, nItens);
+                    apresentarEditarLista(scanner, nome, quanto, preco, feito);
                     break;
                 case 'F':
-                    apresentarFazerCompras(scanner, nome, quanto, preco, feito, nItens);
+                    apresentarFazerCompras(scanner, nome, quanto, preco, feito);
                     break;
                 case 'c':
-                    apresentarFazerContas(scanner, nome, quanto, preco, feito, nItens);
+                    apresentarFazerContas(scanner, nome, quanto, preco, feito);
                     break;
             }
         } while (op != 'S');
     }
 
-    private static int apresentarEditarLista(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static int apresentarEditarLista(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opEditarLista;
         System.out.println(apresentarEditarLista());
         opEditarLista = scanner.next().charAt(0);
         scanner.nextLine();
         switch (opEditarLista) {
             case 'I':
-                inserirItem(scanner, nome, quanto, preco, feito, nItens);
+                inserirItem(scanner, nome, quanto, preco, feito);
                 break;
             case 'p':
-                inserirItemNaposicao(scanner, nome, quanto, preco, feito, nItens);
+                inserirItemNaposicao(scanner, nome, quanto, preco, feito);
                 break;
             case 'A':
-                apagarUltimo(nome, quanto, preco, feito, nItens);
+                apagarUltimo(nome, quanto, preco, feito);
                 break;
             case 'n':
-                apagarItemNaPosicao(scanner, nome, quanto, preco, feito, nItens);
+                apagarItemNaPosicao(scanner, nome, quanto, preco, feito);
                 break;
             case 'a':
-                apagarItensDasPosicoes(scanner, nome, quanto, preco, feito, nItens);
+                apagarItensDasPosicoes(scanner, nome, quanto, preco, feito);
                 break;
             case 'L':
-                listarItens(scanner, nome, quanto, preco, feito, nItens);
+                listarItens(scanner, nome, quanto, preco, feito);
                 break;
             case 'V':
                 // Voltar
@@ -73,26 +78,26 @@ public class Trabalho {
         return nItens;
     }
 
-    private static int apresentarFazerCompras(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static int apresentarFazerCompras(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opFazerCompras;
         System.out.println(apresentarFazerCompras());
         opFazerCompras = scanner.next().charAt(0);
         scanner.nextLine();
         switch (opFazerCompras) {
             case 'M':
-                marcarPorcomprar(scanner, nome, quanto, preco, feito, nItens);
+                marcarPorcomprar(scanner, nome, quanto, preco, feito);
                 break;
             case 'D':
-                desmarcarComprado(scanner, nome, quanto, preco, feito, nItens);
+                desmarcarComprado(scanner, nome, quanto, preco, feito);
                 break;
             case 'n':
-                trocarEstadoPorNome(nome, quanto, preco, feito, nItens, scanner);
+                trocarEstadoPorNome(nome, quanto, preco, feito, scanner);
                 break;
             case 'p':
-                trocarEstadoPorPosição(nome, quanto, preco, feito, nItens, scanner);
+                trocarEstadoPorPosição(nome, quanto, preco, feito, scanner);
                 break;
             case 'L':
-                apresentarlistar(scanner, nome, quanto, preco, feito, nItens);
+                apresentarlistar(scanner, nome, quanto, preco, feito);
                 break;
             case 'V':
                 // Voltar
@@ -103,20 +108,20 @@ public class Trabalho {
         return nItens;
     }
 
-    private static int apresentarlistar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens){
+    private static int apresentarlistar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opListar;
         System.out.println(apresentarlistar());
         opListar = scanner.next().charAt(0);
         scanner.nextLine();
         switch (opListar) {
             case 't':
-                listarItens(scanner, nome, quanto, preco, feito, nItens);
+                listarItens(scanner, nome, quanto, preco, feito);
                 break;
             case 'c':
-                listarComprados(nome, quanto, preco, feito, nItens, scanner);
+                listarComprados(nome, quanto, preco, feito, scanner);
                 break;
             case 'p':
-                listarPorComprar(scanner, nome, quanto, preco, feito, nItens);
+                listarPorComprar(nome, quanto, preco, feito, scanner);
                 break;
             default:
                 System.out.println("Opção Inválida!");
@@ -125,9 +130,29 @@ public class Trabalho {
     }
 
 
+    private static int apresentarFazerContas(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
+        char opFazerContas;
+        System.out.println(apresentarFazerContas());
+        opFazerContas = scanner.next().charAt(0);
+        scanner.nextLine();
 
-    private static void apresentarFazerContas(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-        // Implementar apresentarFazerContas e seus casos
+        switch (opFazerContas) {
+            case 'l':
+                quantoCustaLista(nome, quanto, preco, feito, scanner);
+                break;
+            case 'g':
+                quantoJaGastou(nome, quanto, preco, feito, scanner);
+                break;
+            case 'f':
+                quantoCustaPorComprar(nome, quanto, preco, feito, scanner);
+                break;
+            case 'm':
+                precoMedio(nome, quanto, preco, feito, scanner);
+                break;
+            default:
+                System.out.println("Opção Inválida!");
+        }
+        return nItens;
     }
 
     private static String apresentarEditarLista() {
@@ -169,7 +194,7 @@ public class Trabalho {
                 + "----------------------------------------\n";
     }
 
-    private static int inserirItem(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static int inserirItem(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         System.out.println("Insira um item novo para a lista:");
         String novoItem = scanner.next();
         nome[nItens] = novoItem;
@@ -194,9 +219,9 @@ public class Trabalho {
         return nItens;
     }
 
-    private static void inserirItemNaposicao(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void inserirItemNaposicao(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         // Mostra a Lista
-        listarItens(scanner, nome, quanto, preco, feito, nItens);
+        listarItens(scanner, nome, quanto, preco, feito);
 
         System.out.println("Insira a posição onde deseja inserir o novo item:");
         int posicaoEscolhida = scanner.nextInt();
@@ -237,11 +262,11 @@ public class Trabalho {
                     + "┗--------------------------------------┛\n");
 
             // Mostra a lista atualizada
-            listarItens(scanner, nome, quanto, preco, feito, nItens);
+            listarItens(scanner, nome, quanto, preco, feito);
         }
     }
 
-    private static void apagarUltimo(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void apagarUltimo(String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         if (nItens > 0) {
             // Reduz o contador de itens
             nItens--;
@@ -259,11 +284,9 @@ public class Trabalho {
         }
     }
 
-    private static void apagarItemNaPosicao(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void apagarItemNaPosicao(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         // Mostra a Lista
-        listarItens(scanner, nome, quanto, preco, feito, nItens);
-
-        System.out.println("Insira a posição do item que deseja apagar:");
+        listarItens(scanner, nome, quanto, preco, feito);
 
         if (nItens > 0) {
             System.out.println("Digite a posição do item a ser apagado:");
@@ -294,9 +317,9 @@ public class Trabalho {
         }
     }
 
-    private static void apagarItensDasPosicoes(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void apagarItensDasPosicoes(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         // Mostra a Lista
-        listarItens(scanner, nome, quanto, preco, feito, nItens);
+        listarItens(scanner, nome, quanto, preco, feito);
 
         if (nItens > 0) {
             System.out.println("Digite a posição inicial (m) dos itens a serem apagados:");
@@ -337,7 +360,7 @@ public class Trabalho {
         }
     }
 
-    private static void listarItens(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void listarItens(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         //Lista com todos os itens
         System.out.println("Aqui tem a Lista com todos os seus Itens:");
         System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
@@ -348,7 +371,7 @@ public class Trabalho {
         System.out.println("\n---------------------------------------------------------------\n");
     }
 
-    private static void marcarPorcomprar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void marcarPorcomprar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         //Verifica se há itens na lista
         if (nItens > 0) {
             //Percorre a lista de itens e verifica se o item já está marcado como comprado
@@ -368,7 +391,7 @@ public class Trabalho {
         }
     }
 
-    private static void desmarcarComprado(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+    private static void desmarcarComprado(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         boolean primeiroItemMarcado = false;
         for (int i = 0; i < nItens; i++) {
 
@@ -376,20 +399,21 @@ public class Trabalho {
             if (feito[i]) {
                 feito[i] = false;
 
-                System.out.println( "┏----------------------------------------┒\n"
-                        +   "        "+ nome[i] + " foi desmarcado.  \n"
-                        +   "┗----------------------------------------┛\n");
+                System.out.println("┏----------------------------------------┒\n"
+                        + "        " + nome[i] + " foi desmarcado.  \n"
+                        + "┗----------------------------------------┛\n");
                 primeiroItemMarcado = true;
                 break;
             }
             if (!primeiroItemMarcado) {
-                System.out.println( "┏------------------------------------------┒\n"
-                        +   "|  Nenhum item está marcado como comprado! |\n"
-                        +   "┗------------------------------------------┛\n");
+                System.out.println("┏------------------------------------------┒\n"
+                        + "|  Nenhum item está marcado como comprado! |\n"
+                        + "┗------------------------------------------┛\n");
             }
         }
     }
-    private static void trocarEstadoPorNome(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
+
+    private static void trocarEstadoPorNome(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
         System.out.println("Aqui tem a Lista com todos os seus Itens:");
         System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
         for (int i = 0; i < nItens; i++) {
@@ -406,14 +430,15 @@ public class Trabalho {
                 //altera o estado do item entre "comprado" e "por comprar"
                 feito[i] = !feito[i];
                 String estado = feito[i] ? "comprado" : "por comprar";
-                System.out.println( "┏--------------------------------------------------┒\n"
-                        +   "     "+nome[i] + " está agora " + estado + "!\n"
-                        +   "┗--------------------------------------------------┛\n");
+                System.out.println("┏--------------------------------------------------┒\n"
+                        + "     " + nome[i] + " está agora " + estado + "!\n"
+                        + "┗--------------------------------------------------┛\n");
                 break;
             }
         }
     }
-    private static void trocarEstadoPorPosição(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
+
+    private static void trocarEstadoPorPosição(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
         System.out.println("Aqui tem a Lista com todos os seus Itens:");
         System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
         for (int i = 0; i < nItens; i++) {
@@ -426,20 +451,81 @@ public class Trabalho {
 
         // Verifica se a posição fornecida é válida
         if (posicao < 0 && posicao >= nItens) {
-            System.out.println( "┏------------------------------------------┒\n"
-                    +   "|            Posição Inválida!             |\n"
-                    +   "┗------------------------------------------┛\n");
+            System.out.println("┏------------------------------------------┒\n"
+                    + "|            Posição Inválida!             |\n"
+                    + "┗------------------------------------------┛\n");
         } else {
 
             // Marca ou desmarca o item na posição especificada
             feito[posicao] = !feito[posicao];
             String estado = feito[posicao] ? "comprado" : "por comprar";
-            System.out.println( "┏-----------------------------------------┒\n"
-                    +   "  "+nome[posicao] + " está agora " + estado + "!\n"
-                    +   "┗-----------------------------------------┛\n");
+            System.out.println("┏-----------------------------------------┒\n"
+                    + "  " + nome[posicao] + " está agora " + estado + "!\n"
+                    + "┗-----------------------------------------┛\n");
         }
     }
     private static void listarComprados(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
         
     }
-}
+
+    private static void listarPorComprar(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
+        System.out.println("Aqui tem a Lista com todos os Itens por comprar:");
+        System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
+        for (int i = 0; i < nItens; i++) {
+            char marcado = feito[i] ? 'x' : ' ';
+            if (!feito[i]) {
+                System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
+            }
+        }
+        System.out.println("\n---------------------------------------------------------------\n");
+    }
+
+    private static void quantoCustaLista(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
+//Faz a operação para calcular o total da lista
+        for(int i = 0; i < nItens; i++){
+            total += preco[i]*quanto[i];
+        }
+        System.out.println("┏----------------------------------------------┒\n"
+                + "       O valor total da lista é:  " + total + " €.   \n"
+                + "┗---------------------------------------------┛\n");
+    }
+
+    private static void quantoJaGastou(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
+
+        for (int i = 0; i < nItens; i++) {
+            if (feito[i]) {
+                gasto += quanto[i] * preco[i];
+            }
+        }
+        System.out.println("┏----------------------------------------------┒");
+        System.out.printf("        O valor total gasto é: %.2f€\n", gasto);
+        System.out.println("┗----------------------------------------------┛\n");
+    }
+
+    private static void quantoCustaPorComprar(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
+
+        //Calcula o valor total do que falta comprar somando a quantidade multiplicada pelo preço de cada item não marcado como comprado
+        for (int i = 0; i < nItens; i++) {
+            if (!feito[i]) {
+                falta += quanto[i] * preco[i];
+            }
+        }
+        System.out.println("┏------------------------------------------------------┒");
+        System.out.printf("   O valor total do que falta comprar é: %.2f\n", falta);
+        System.out.println("┗------------------------------------------------------┛\n");
+    }
+
+    private static void precoMedio(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
+        if (nItens > 0) {
+                double precoMedio = total / nItens;
+
+                System.out.println("┏-------------------------------------------------┒");
+                System.out.printf("      O preço médio por item é: %.2f\n", precoMedio);
+                System.out.println("┗-------------------------------------------------┛\n");
+            }
+        else
+            System.out.println("┏-----------------------------------------------------------┒\n"
+                        + "| A lista está vazia. Não é possível calcular o preço médio.|\n"
+                        + "┗-----------------------------------------------------------┛\n");
+        }
+    }
