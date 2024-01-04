@@ -180,10 +180,10 @@ public class Trabalho {
 
     private static String apresentarlistar() {
         return "----------------------------------------\n"
-            + "Listar (t)odos os itens.\n"
-            + "Listar itens (c)omprados.\n"
-            + "Listar itens (p)or comprar.\n"
-            + "----------------------------------------\n";
+                + "Listar (t)odos os itens.\n"
+                + "Listar itens (c)omprados.\n"
+                + "Listar itens (p)or comprar.\n"
+                + "----------------------------------------\n";
     }
 
     private static String apresentarFazerContas() {
@@ -464,8 +464,17 @@ public class Trabalho {
                     + "┗-----------------------------------------┛\n");
         }
     }
-    private static void listarComprados(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
-        
+
+    private static void listarComprados(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
+        System.out.println("Aqui tem a Lista com todos os Itens comprados:");
+        System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
+        for (int i = 0; i < nItens; i++) {
+            char marcado = feito[i] ? 'x' : ' ';
+            if (feito[i]) {
+                System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
+            }
+        }
+        System.out.println("\n---------------------------------------------------------------\n");
     }
 
     private static void listarPorComprar(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
