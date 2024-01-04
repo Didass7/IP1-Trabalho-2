@@ -28,7 +28,7 @@ public class Trabalho {
             scanner.nextLine();
             switch (op) {
                 case 'E':
-                	apresentarEditarLista(scanner, nome, quanto, preco, feito, nItens);
+                    apresentarEditarLista(scanner, nome, quanto, preco, feito, nItens);
                     break;
                 case 'F':
                     apresentarFazerCompras(scanner, nome, quanto, preco, feito, nItens);
@@ -41,13 +41,13 @@ public class Trabalho {
     }
 
     private static int apresentarEditarLista(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	char opEditarLista;
-    	System.out.println(apresentarEditarLista());
+        char opEditarLista;
+        System.out.println(apresentarEditarLista());
         opEditarLista = scanner.next().charAt(0);
         scanner.nextLine();
         switch (opEditarLista) {
             case 'I':
-            	inserirItem(scanner, nome, quanto, preco, feito, nItens);
+                inserirItem(scanner, nome, quanto, preco, feito, nItens);
                 break;
             case 'p':
                 inserirItemNaposicao(scanner, nome, quanto, preco, feito, nItens);
@@ -59,10 +59,10 @@ public class Trabalho {
                 apagarItemNaPosicao(scanner, nome, quanto, preco, feito, nItens);
                 break;
             case 'a':
-            	apagarItensDasPosicoes(scanner, nome, quanto, preco, feito, nItens);
+                apagarItensDasPosicoes(scanner, nome, quanto, preco, feito, nItens);
                 break;
             case 'L':
-                listarItens(nome, quanto, preco, feito, nItens);
+                listarItens(scanner, nome, quanto, preco, feito, nItens);
                 break;
             case 'V':
                 // Voltar
@@ -73,8 +73,34 @@ public class Trabalho {
         return nItens;
     }
 
-    private static void apresentarFazerCompras(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-        // Implementar apresentarFazerCompras e seus casos
+    private static int apresentarFazerCompras(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+        char opFazerCompras;
+        System.out.println(apresentarFazerCompras());
+        opFazerCompras = scanner.next().charAt(0);
+        scanner.nextLine();
+        switch (opFazerCompras) {
+            case 'M':
+                marcarPorcomprar(scanner, nome, quanto, preco, feito, nItens);
+                break;
+            case 'D':
+                desmarcarComprado(scanner, nome, quanto, preco, feito, nItens);
+                break;
+            case 'n':
+                trocarEstadoPorNome(nome, quanto, preco, feito, nItens, scanner);
+                break;
+            case 'p':
+                trocarEstadoPorPosição(nome, quanto, preco, feito, nItens, scanner);
+                break;
+            case 'L':
+                apresentarlistar(scanner, nome, quanto, preco, feito, nItens);
+                break;
+            case 'V':
+                // Voltar
+                break;
+            default:
+                System.out.println("Opção Inválida!");
+        }
+        return nItens;
     }
 
     private static int apresentarlistar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens){
