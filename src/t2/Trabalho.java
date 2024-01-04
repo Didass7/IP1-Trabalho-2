@@ -1,4 +1,5 @@
 package t2;
+
 import java.util.Scanner;
 
 public class Trabalho {
@@ -76,6 +77,29 @@ public class Trabalho {
         // Implementar apresentarFazerCompras e seus casos
     }
 
+    private static int apresentarlistar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens){
+        char opListar;
+        System.out.println(apresentarlistar());
+        opListar = scanner.next().charAt(0);
+        scanner.nextLine();
+        switch (opListar) {
+            case 't':
+                listarItens(scanner, nome, quanto, preco, feito, nItens);
+                break;
+            case 'c':
+                listarComprados(nome, quanto, preco, feito, nItens, scanner);
+                break;
+            case 'p':
+                listarPorComprar(scanner, nome, quanto, preco, feito, nItens);
+                break;
+            default:
+                System.out.println("Opção Inválida!");
+        }
+        return nItens;
+    }
+
+
+
     private static void apresentarFazerContas(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
         // Implementar apresentarFazerContas e seus casos
     }
@@ -92,8 +116,35 @@ public class Trabalho {
                 + "----------------------------------------\n";
     }
 
+    private static String apresentarFazerCompras() {
+        return "----------------------------------------\n"
+                + "(M)arcar primeiro item por comprar.\n"
+                + "(D)esmarcar primeiro item comprado.\n"
+                + "Trocar estado por (n)ome.\n"
+                + "Trocar estado por (p)osição.\n"
+                + "(L)istar.\n"
+                + "(V)oltar.\n"
+                + "----------------------------------------\n";
+    }
+
+    private static String apresentarlistar() {
+        return "----------------------------------------\n"
+            + "Listar (t)odos os itens.\n"
+            + "Listar itens (c)omprados.\n"
+            + "Listar itens (p)or comprar.\n"
+            + "----------------------------------------\n";
+    }
+
+    private static String apresentarFazerContas() {
+        return "Quanto custa a (l)ista?\n"
+                + "Quanto já (g)astei?\n"
+                + "Quanto custa o que (f)alta comprar?\n"
+                + "Qual o preço (m)édio por item?\n"
+                + "----------------------------------------\n";
+    }
+
     private static int inserirItem(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	System.out.println("Insira um item novo para a lista:");
+        System.out.println("Insira um item novo para a lista:");
         String novoItem = scanner.next();
         nome[nItens] = novoItem;
 
@@ -111,20 +162,20 @@ public class Trabalho {
         // Adiciona +1 à variável nItens sempre que um item novo é adicionado
         nItens++;
 
-        System.out.println( "┏--------------------------------------┒\n"
-                +   "|      Item adicionado com sucesso!    |\n"
-                +   "┗--------------------------------------┛\n");
+        System.out.println("┏--------------------------------------┒\n"
+                + "|      Item adicionado com sucesso!    |\n"
+                + "┗--------------------------------------┛\n");
         return nItens;
     }
 
     private static void inserirItemNaposicao(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	// Mostra a Lista
-        listarItens(nome, quanto, preco, feito, nItens);
+        // Mostra a Lista
+        listarItens(scanner, nome, quanto, preco, feito, nItens);
 
         System.out.println("Insira a posição onde deseja inserir o novo item:");
         int posicaoEscolhida = scanner.nextInt();
         scanner.nextLine();
-        
+
         // Verifica se a posição inserida é válida
         if (posicaoEscolhida < 0 || posicaoEscolhida > nItens) {
             System.out.println("Posição inválida!");
@@ -160,12 +211,12 @@ public class Trabalho {
                     + "┗--------------------------------------┛\n");
 
             // Mostra a lista atualizada
-            listarItens(nome, quanto, preco, feito, nItens);
+            listarItens(scanner, nome, quanto, preco, feito, nItens);
         }
     }
 
     private static void apagarUltimo(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	if (nItens > 0) {
+        if (nItens > 0) {
             // Reduz o contador de itens
             nItens--;
 
@@ -183,10 +234,10 @@ public class Trabalho {
     }
 
     private static void apagarItemNaPosicao(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	// Mostra a Lista
-        listarItens(nome, quanto, preco, feito, nItens);
-        
-    	System.out.println("Insira a posição do item que deseja apagar:");
+        // Mostra a Lista
+        listarItens(scanner, nome, quanto, preco, feito, nItens);
+
+        System.out.println("Insira a posição do item que deseja apagar:");
 
         if (nItens > 0) {
             System.out.println("Digite a posição do item a ser apagado:");
@@ -201,25 +252,25 @@ public class Trabalho {
                     feito[i] = feito[i + 1];
                 }
                 nItens--;
-                System.out.println( "┏------------------------------------------┒\n"
-                        +   "  Item na posição " + posicao + " removido com sucesso!  \n"
-                        +   "┗------------------------------------------┛\n");
+                System.out.println("┏------------------------------------------┒\n"
+                        + "  Item na posição " + posicao + " removido com sucesso!  \n"
+                        + "┗------------------------------------------┛\n");
 
             } else {
-                System.out.println( "┏--------------------------------------┒\n"
-                        +   "|            Posição inválida          |\n"
-                        +   "┗--------------------------------------┛\n");
+                System.out.println("┏--------------------------------------┒\n"
+                        + "|            Posição inválida          |\n"
+                        + "┗--------------------------------------┛\n");
             }
         } else {
-            System.out.println( "┏--------------------------------------┒\n"
-                    +   "|  A lista está vazia! Nada a remover. |\n"
-                    +   "┗--------------------------------------┛\n");
+            System.out.println("┏--------------------------------------┒\n"
+                    + "|  A lista está vazia! Nada a remover. |\n"
+                    + "┗--------------------------------------┛\n");
         }
     }
 
     private static void apagarItensDasPosicoes(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	// Mostra a Lista
-        listarItens(nome, quanto, preco, feito, nItens);
+        // Mostra a Lista
+        listarItens(scanner, nome, quanto, preco, feito, nItens);
 
         if (nItens > 0) {
             System.out.println("Digite a posição inicial (m) dos itens a serem apagados:");
@@ -244,24 +295,24 @@ public class Trabalho {
                 //Atualiza o número de itens
                 nItens -= qRemovidos;
 
-                System.out.println( "┏--------------------------------------------------┒\n"
-                        +   "  Itens da posição " + pInicial + " à posição " +pFinal + " foram removidos.  \n"
-                        +   "┗--------------------------------------------------┛\n");
+                System.out.println("┏--------------------------------------------------┒\n"
+                        + "  Itens da posição " + pInicial + " à posição " + pFinal + " foram removidos.  \n"
+                        + "┗--------------------------------------------------┛\n");
 
             } else {
-                System.out.println( "┏--------------------------------------┒\n"
-                        +   "|         Posições inválidas.          |\n"
-                        +   "┗--------------------------------------┛\n");
+                System.out.println("┏--------------------------------------┒\n"
+                        + "|         Posições inválidas.          |\n"
+                        + "┗--------------------------------------┛\n");
             }
         } else {
-            System.out.println( "┏--------------------------------------┒\n"
-                    +   "|         A lista está vazia.          |\n"
-                    +   "┗--------------------------------------┛\n");
+            System.out.println("┏--------------------------------------┒\n"
+                    + "|         A lista está vazia.          |\n"
+                    + "┗--------------------------------------┛\n");
         }
     }
 
-    private static void listarItens(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
-    	//Lista com todos os itens
+    private static void listarItens(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+        //Lista com todos os itens
         System.out.println("Aqui tem a Lista com todos os seus Itens:");
         System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
         for (int i = 0; i < nItens; i++) {
@@ -269,5 +320,100 @@ public class Trabalho {
             System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
         }
         System.out.println("\n---------------------------------------------------------------\n");
+    }
+
+    private static void marcarPorcomprar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+        //Verifica se há itens na lista
+        if (nItens > 0) {
+            //Percorre a lista de itens e verifica se o item já está marcado como comprado
+            for (int i = 0; i < nItens; i++) {
+                if (!feito[i]) {
+                    feito[i] = true;
+                    System.out.println("┏--------------------------------------------------┒\n"
+                            + "    " + nome[i] + " está marcado como comprado!  \n"
+                            + "┗--------------------------------------------------┛\n");
+                    break;
+                }
+            }
+        } else {
+            System.out.println("┏--------------------------------------┒\n"
+                    + "|          A lista está vazia!         |\n"
+                    + "┗--------------------------------------┛\n");
+        }
+    }
+
+    private static void desmarcarComprado(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens) {
+        boolean primeiroItemMarcado = false;
+        for (int i = 0; i < nItens; i++) {
+
+            //Verifica se o item está marcado como comprado
+            if (feito[i]) {
+                feito[i] = false;
+
+                System.out.println( "┏----------------------------------------┒\n"
+                        +   "        "+ nome[i] + " foi desmarcado.  \n"
+                        +   "┗----------------------------------------┛\n");
+                primeiroItemMarcado = true;
+                break;
+            }
+            if (!primeiroItemMarcado) {
+                System.out.println( "┏------------------------------------------┒\n"
+                        +   "|  Nenhum item está marcado como comprado! |\n"
+                        +   "┗------------------------------------------┛\n");
+            }
+        }
+    }
+    private static void trocarEstadoPorNome(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
+        System.out.println("Aqui tem a Lista com todos os seus Itens:");
+        System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
+        for (int i = 0; i < nItens; i++) {
+            char marcado = feito[i] ? 'x' : ' ';
+            System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
+        }
+
+        System.out.println("Insira o nome do item para trocar o estado");
+        String nomeItem = scanner.next();
+
+        //faz um ciclo para encontrar o item correspondente ao nome fornecido
+        for (int i = 0; i < nItens; i++) {
+            if (nome[i].equalsIgnoreCase(nomeItem)) {
+                //altera o estado do item entre "comprado" e "por comprar"
+                feito[i] = !feito[i];
+                String estado = feito[i] ? "comprado" : "por comprar";
+                System.out.println( "┏--------------------------------------------------┒\n"
+                        +   "     "+nome[i] + " está agora " + estado + "!\n"
+                        +   "┗--------------------------------------------------┛\n");
+                break;
+            }
+        }
+    }
+    private static void trocarEstadoPorPosição(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
+        System.out.println("Aqui tem a Lista com todos os seus Itens:");
+        System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
+        for (int i = 0; i < nItens; i++) {
+            char marcado = feito[i] ? 'x' : ' ';
+            System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
+        }
+
+        System.out.println("Qual é a posição do item a ser marcado/desmarcado? ");
+        int posicao = scanner.nextInt();
+
+        // Verifica se a posição fornecida é válida
+        if (posicao < 0 && posicao >= nItens) {
+            System.out.println( "┏------------------------------------------┒\n"
+                    +   "|            Posição Inválida!             |\n"
+                    +   "┗------------------------------------------┛\n");
+        } else {
+
+            // Marca ou desmarca o item na posição especificada
+            feito[posicao] = !feito[posicao];
+            String estado = feito[posicao] ? "comprado" : "por comprar";
+            System.out.println( "┏-----------------------------------------┒\n"
+                    +   "  "+nome[posicao] + " está agora " + estado + "!\n"
+                    +   "┗-----------------------------------------┛\n");
+        }
+    }
+    private static void listarComprados(String[] nome, double[] quanto, double[] preco, boolean[] feito, int nItens, Scanner scanner){
+        
     }
 }
