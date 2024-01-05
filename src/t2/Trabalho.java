@@ -43,115 +43,133 @@ public class Trabalho {
                     break;
             }
         } while (op != 'S');
+        System.out.println("┏---------------------------┒\n"
+                + "|      Saiu do Programa!    |\n"
+                + "┗---------------------------┛\n");
+
     }
 
     private static int apresentarEditarLista(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opEditarLista;
-        System.out.println(apresentarEditarLista());
-        opEditarLista = scanner.next().charAt(0);
-        scanner.nextLine();
-        switch (opEditarLista) {
-            case 'I':
-                inserirItem(scanner, nome, quanto, preco, feito);
-                break;
-            case 'p':
-                inserirItemNaposicao(scanner, nome, quanto, preco, feito);
-                break;
-            case 'A':
-                apagarUltimo(nome, quanto, preco, feito);
-                break;
-            case 'n':
-                apagarItemNaPosicao(scanner, nome, quanto, preco, feito);
-                break;
-            case 'a':
-                apagarItensDasPosicoes(scanner, nome, quanto, preco, feito);
-                break;
-            case 'L':
-                listarItens(scanner, nome, quanto, preco, feito);
-                break;
-            case 'V':
-                // Voltar
-                break;
-            default:
-                System.out.println("Opção Inválida!");
-        }
+
+        do{
+            System.out.println(apresentarEditarLista());
+            opEditarLista = scanner.next().charAt(0);
+            scanner.nextLine();
+
+            switch (opEditarLista) {
+                case 'I':
+                    inserirItem(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'p':
+                    inserirItemNaposicao(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'A':
+                    apagarUltimo(nome, quanto, preco, feito);
+                    break;
+                case 'n':
+                    apagarItemNaPosicao(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'a':
+                    apagarItensDasPosicoes(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'L':
+                    listarItens(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'V':
+                    // Voltar
+                    break;
+                default:
+                    System.out.println("Opção Inválida!");
+            }
+        }while(opEditarLista!='V');
+
         return nItens;
     }
 
     private static int apresentarFazerCompras(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opFazerCompras;
-        System.out.println(apresentarFazerCompras());
-        opFazerCompras = scanner.next().charAt(0);
-        scanner.nextLine();
-        switch (opFazerCompras) {
-            case 'M':
-                marcarPorcomprar(scanner, nome, quanto, preco, feito);
-                break;
-            case 'D':
-                desmarcarComprado(scanner, nome, quanto, preco, feito);
-                break;
-            case 'n':
-                trocarEstadoPorNome(nome, quanto, preco, feito, scanner);
-                break;
-            case 'p':
-                trocarEstadoPorPosição(nome, quanto, preco, feito, scanner);
-                break;
-            case 'L':
-                apresentarlistar(scanner, nome, quanto, preco, feito);
-                break;
-            case 'V':
-                // Voltar
-                break;
-            default:
-                System.out.println("Opção Inválida!");
-        }
+        do{
+            System.out.println(apresentarFazerCompras());
+            opFazerCompras = scanner.next().charAt(0);
+            scanner.nextLine();
+            switch (opFazerCompras) {
+                case 'M':
+                    marcarPorcomprar(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'D':
+                    desmarcarComprado(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'n':
+                    trocarEstadoPorNome(nome, quanto, preco, feito, scanner);
+                    break;
+                case 'p':
+                    trocarEstadoPorPosição(nome, quanto, preco, feito, scanner);
+                    break;
+                case 'L':
+                    apresentarlistar(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'V':
+                    // Voltar
+                    break;
+                default:
+                    System.out.println("Opção Inválida!");
+            }
+        }while(opFazerCompras!='V');
+
         return nItens;
     }
 
     private static int apresentarlistar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opListar;
-        System.out.println(apresentarlistar());
-        opListar = scanner.next().charAt(0);
-        scanner.nextLine();
-        switch (opListar) {
-            case 't':
-                listarItens(scanner, nome, quanto, preco, feito);
-                break;
-            case 'c':
-                listarComprados(nome, quanto, preco, feito, scanner);
-                break;
-            case 'p':
-                listarPorComprar(nome, quanto, preco, feito, scanner);
-                break;
-            default:
-                System.out.println("Opção Inválida!");
-        }
+        do{
+            System.out.println(apresentarlistar());
+            opListar = scanner.next().charAt(0);
+            scanner.nextLine();
+            switch (opListar) {
+                case 't':
+                    listarItens(scanner, nome, quanto, preco, feito);
+                    break;
+                case 'c':
+                    listarComprados(nome, quanto, preco, feito, scanner);
+                    break;
+                case 'p':
+                    listarPorComprar(nome, quanto, preco, feito, scanner);
+                    break;
+                default:
+                    System.out.println("Opção Inválida!");
+            }
+        }while(opListar!='V');
+
         return nItens;
     }
 
 
     private static int apresentarFazerContas(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         char opFazerContas;
-        System.out.println(apresentarFazerContas());
-        opFazerContas = scanner.next().charAt(0);
-        scanner.nextLine();
+        do{
+            System.out.println(apresentarFazerContas());
+            opFazerContas = scanner.next().charAt(0);
+            scanner.nextLine();
 
-        switch (opFazerContas) {
-            case 'l':
-                quantoCustaLista(nome, quanto, preco, feito, scanner);
-                break;
-            case 'g':
-                quantoJaGastou(nome, quanto, preco, feito, scanner);
-                break;
-            case 'f':
-                quantoCustaPorComprar(nome, quanto, preco, feito, scanner);
-                break;
-            case 'm':
-                precoMedio(nome, quanto, preco, feito, scanner);
-                break;
-            default:
-                System.out.println("Opção Inválida!");
-        }
+            switch (opFazerContas) {
+                case 'l':
+                    quantoCustaLista(nome, quanto, preco, feito, scanner);
+                    break;
+                case 'g':
+                    quantoJaGastou(nome, quanto, preco, feito, scanner);
+                    break;
+                case 'f':
+                    quantoCustaPorComprar(nome, quanto, preco, feito, scanner);
+                    break;
+                case 'm':
+                    precoMedio(nome, quanto, preco, feito, scanner);
+                    break;
+                default:
+                    System.out.println("Opção Inválida!");
+            }
+        }while(opFazerContas!='V');
+
         return nItens;
     }
 
@@ -362,13 +380,20 @@ public class Trabalho {
 
     private static void listarItens(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
         //Lista com todos os itens
-        System.out.println("Aqui tem a Lista com todos os seus Itens:");
-        System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
-        for (int i = 0; i < nItens; i++) {
-            char marcado = feito[i] ? 'x' : ' ';
-            System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
+        if(nItens>0){
+            System.out.println("Aqui tem a Lista com todos os seus Itens:");
+            System.out.printf("%s   %-25s  %-10s  %-8s  %-8s\n", " ", "Item", "Quantidade", "Preço", "Comprado");
+            for (int i = 0; i < nItens; i++) {
+                char marcado = feito[i] ? 'x' : ' ';
+                System.out.printf("%d:  %-25s  %-10.2f  %-8.2f  %-8c\n", i, nome[i], quanto[i], preco[i], marcado);
+            }
+            System.out.println("\n---------------------------------------------------------------\n");
+        }else{
+            System.out.println("┏--------------------------------------┒\n"
+                    + "|         A lista está vazia.          |\n"
+                    + "┗--------------------------------------┛\n");
         }
-        System.out.println("\n---------------------------------------------------------------\n");
+
     }
 
     private static void marcarPorcomprar(Scanner scanner, String[] nome, double[] quanto, double[] preco, boolean[] feito) {
@@ -526,15 +551,15 @@ public class Trabalho {
 
     private static void precoMedio(String[] nome, double[] quanto, double[] preco, boolean[] feito, Scanner scanner) {
         if (nItens > 0) {
-                double precoMedio = total / nItens;
+            double precoMedio = total / nItens;
 
-                System.out.println("┏-------------------------------------------------┒");
-                System.out.printf("      O preço médio por item é: %.2f\n", precoMedio);
-                System.out.println("┗-------------------------------------------------┛\n");
-            }
+            System.out.println("┏-------------------------------------------------┒");
+            System.out.printf("      O preço médio por item é: %.2f\n", precoMedio);
+            System.out.println("┗-------------------------------------------------┛\n");
+        }
         else
             System.out.println("┏-----------------------------------------------------------┒\n"
-                        + "| A lista está vazia. Não é possível calcular o preço médio.|\n"
-                        + "┗-----------------------------------------------------------┛\n");
-        }
+                    + "| A lista está vazia. Não é possível calcular o preço médio.|\n"
+                    + "┗-----------------------------------------------------------┛\n");
     }
+}
